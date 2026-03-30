@@ -14,7 +14,8 @@
 
 - 操作系统：Windows
 - 使用工具：Codex
-- 默认终端或终端编码设置导致中文显示异常
+- Windows 版 Codex 集成终端出现中文乱码
+- 终端类型为设置页里的 `PowerShell`
 
 ## 3. 一次性处理步骤
 
@@ -22,7 +23,7 @@
 
 ### 步骤 0：先确认当前是不是旧版 PowerShell
 
-在当前终端执行：
+在 Codex 当前打开的 `PowerShell` 终端里执行：
 
 ```powershell
 $PSVersionTable.PSVersion
@@ -74,6 +75,23 @@ winget install --id Microsoft.PowerShell --source winget
 winget upgrade --id Microsoft.PowerShell --source winget
 ```
 
+如果安装命令执行完成后，当前终端里立刻输入 `pwsh -v` 还是提示找不到命令，不要急着重装，通常只是当前会话的 PATH 还没刷新。
+
+先直接检查安装文件是否已经落地：
+
+```powershell
+Test-Path "C:\Program Files\PowerShell\7\pwsh.exe"
+```
+
+如果返回 `True`，继续执行：
+
+```powershell
+& "C:\Program Files\PowerShell\7\pwsh.exe" -v
+& "C:\Program Files\PowerShell\7\pwsh.exe" -NoLogo -Command '$PSVersionTable.PSVersion'
+```
+
+这一步能跑通，就说明 PowerShell 7 已经安装成功，只是当前终端还没刷新环境变量。
+
 #### 方式 B：没有 `winget` 时
 
 如果执行 `where.exe winget` 提示找不到命令，说明当前环境没有 `winget`。
@@ -97,14 +115,27 @@ where.exe pwsh
 pwsh -v
 ```
 
-### 步骤 2：让终端使用 `pwsh`
+### 步骤 2：在终端里切到 PowerShell 7
 
-确保 Codex 使用的终端是 `pwsh`，而不是旧版 `powershell`。
+Windows 版 Codex 当前设置页通常只有：
 
-先验证 `pwsh` 能不能直接运行：
+- `PowerShell`
+- `Command Prompt`
+- `Git Bash`
+- `WSL`
+
+也就是说，通常没有单独可选的 `pwsh` 项，所以这里不要去设置页里找 `pwsh`。
+
+直接在 Codex 的 `PowerShell` 终端里执行：
 
 ```powershell
 pwsh
+```
+
+如果 `pwsh` 还找不到，就直接使用绝对路径启动：
+
+```powershell
+& "C:\Program Files\PowerShell\7\pwsh.exe"
 ```
 
 进入后再执行：
@@ -114,12 +145,6 @@ $PSVersionTable.PSVersion
 ```
 
 如果显示主版本为 `7`，说明你当前已经进入正确终端。
-
-如果你的 Codex 终端配置里可以设置 shell，目标就是让它使用：
-
-```text
-pwsh
-```
 
 ### 步骤 3：设置终端为 UTF-8 / 65001
 
@@ -149,7 +174,7 @@ chcp
 
 #### 可选：写入 PowerShell 7 配置文件
 
-如果你不想每次都手动执行，可以先查看 PowerShell 7 配置文件路径：
+如果你不想每次都手动执行，可以先查看当前 PowerShell 7 配置文件路径：
 
 ```powershell
 $PROFILE
@@ -185,7 +210,8 @@ Get-Content $PROFILE
 1. 完全关闭 Codex
 2. 重新打开 Codex
 3. 打开一个新终端
-4. 再次确认当前 shell 是 `pwsh`
+4. 在终端里执行 `$PSVersionTable.PSVersion`
+5. 确认当前主版本仍然是 `7`
 
 ### 步骤 5：重新验证中文显示
 
@@ -218,8 +244,10 @@ Write-Output "你好，Codex"
 
 ## 5. 注意事项
 
+- Windows 版 Codex 设置页里通常没有单独的 `pwsh` 选项，这是正常现象
+- 这类问题可以直接在 Codex 自带的 `PowerShell` 终端里完成处理，不一定需要先去设置页额外配置
 - 只切换编码页、不升级 PowerShell，效果可能不稳定
-- 只升级 PowerShell、不确保 Codex 终端实际使用 `pwsh`，也可能仍然乱码
+- 只升级 PowerShell、但当前终端仍停留在旧版 PowerShell 5，会让人误以为升级没生效
 - 修改完成后如果不重启 Codex，旧会话可能继续沿用旧配置
 - 某些历史终端窗口或外部工具自身也可能带来额外编码问题，需要分开判断
 - 如果 `$PROFILE` 里重复追加了多次编码设置，虽然通常不影响使用，但会显得冗余，可以后续手动整理
@@ -243,14 +271,15 @@ Write-Output "你好，Codex"
 
 1. 重启 Codex
 2. 打开新终端
-3. 再次执行 `Write-Output "你好，Codex"` 看中文是否正常
+3. 执行 `$PSVersionTable.PSVersion`
+4. 再次执行 `Write-Output "你好，Codex"` 看中文是否正常
 
 ## 7. 结论
 
 这类问题在 Windows 下通常不是单点故障，而是以下几项需要同时对齐：
 
 - PowerShell 7
-- `pwsh` 终端
+- 在终端里实际进入 PowerShell 7
 - UTF-8 / 65001 编码
 - 重启 Codex 后再次验证
 
