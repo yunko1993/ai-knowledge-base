@@ -1,4 +1,4 @@
-# dev-knowledge-base
+# ai-knowledge-base
 
 > 把踩过的坑、修过的 bug、配过的环境，
 > 慢慢封印成一套人和 AI 都能直接使用的知识卷轴。
@@ -22,7 +22,7 @@
 ## 目录建议
 
 ```text
-dev-knowledge-base/
+ai-knowledge-base/
   README.md
   docs/
     ai-tools/
@@ -56,8 +56,8 @@ dev-knowledge-base/
 
 ## 当前图鉴
 
-- [Windows 下 Codex 中文乱码：PowerShell 7 + UTF-8 解决记录](C:\github\dev-knowledge-base\docs\dev-env\codex\windows-powershell7-utf8.md)
-- [Windows 下 Codex 桌面版通过 Clash Verge 连接代理的配置与校验](C:\github\dev-knowledge-base\docs\dev-env\codex\windows-clash-verge-proxy.md)
+- [Windows 下 Codex 中文乱码：PowerShell 7 + UTF-8 解决记录](C:\github\ai-knowledge-base\docs\dev-env\codex\windows-powershell7-utf8.md)
+- [Windows 下 Codex 桌面版通过 Clash Verge 连接代理的配置与校验](C:\github\ai-knowledge-base\docs\dev-env\codex\windows-clash-verge-proxy.md)
 
 ## 收录范围
 
