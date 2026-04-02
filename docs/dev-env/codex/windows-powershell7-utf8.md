@@ -174,28 +174,60 @@ chcp
 
 #### 可选：写入 PowerShell 7 配置文件
 
-如果你不想每次都手动执行，可以先查看当前 PowerShell 7 配置文件路径：
+如果你不想每次都手动执行，可以把配置写进 PowerShell 7 的 profile。
+
+先注意一件事：
+
+- `$PROFILE` 只会显示配置文件路径，不会自动弹出编辑器
+- `New-Item` 只会创建文件，也不会自动打开文件
+
+先查看当前 PowerShell 7 配置文件路径：
 
 ```powershell
 $PROFILE
 ```
 
-如果文件不存在，创建它：
+先确保 profile 所在目录存在：
+
+```powershell
+$profileDir = Split-Path $PROFILE -Parent
+New-Item -ItemType Directory -Force -Path $profileDir
+```
+
+再确保 profile 文件存在：
 
 ```powershell
 New-Item -ItemType File -Force -Path $PROFILE
 ```
 
-然后把下面内容追加进去：
+这里有两种方式，任选一种。
+
+方式 A：直接自动追加配置，不手动打开文件
 
 ```powershell
 Add-Content -Path $PROFILE -Value 'chcp 65001 > $null'
 Add-Content -Path $PROFILE -Value '[Console]::InputEncoding = [System.Text.UTF8Encoding]::new()'
 Add-Content -Path $PROFILE -Value '[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()'
 Add-Content -Path $PROFILE -Value '$OutputEncoding = [System.Text.UTF8Encoding]::new()'
+Get-Content $PROFILE
 ```
 
-追加完成后可查看：
+方式 B：手动打开配置文件，再把内容粘贴进去
+
+```powershell
+notepad $PROFILE
+```
+
+打开后填入：
+
+```powershell
+chcp 65001 > $null
+[Console]::InputEncoding = [System.Text.UTF8Encoding]::new()
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
+$OutputEncoding = [System.Text.UTF8Encoding]::new()
+```
+
+保存后可执行：
 
 ```powershell
 Get-Content $PROFILE
@@ -251,6 +283,7 @@ Write-Output "你好，Codex"
 - 修改完成后如果不重启 Codex，旧会话可能继续沿用旧配置
 - 某些历史终端窗口或外部工具自身也可能带来额外编码问题，需要分开判断
 - 如果 `$PROFILE` 里重复追加了多次编码设置，虽然通常不影响使用，但会显得冗余，可以后续手动整理
+- 如果你想“弹出配置文件自己编辑”，要显式执行 `notepad $PROFILE`，单独运行 `$PROFILE` 或 `New-Item` 不会自动打开编辑器
 
 ## 6. 最短执行版
 
