@@ -3,7 +3,7 @@ name: code-comment-style
 description: >-
   Use when writing, refactoring, reviewing, or documenting code where comments should be improved.
   Prefer structured, intent-focused comments with Chinese business-context style when appropriate,
-  including section headers for major phases, tagged comments for risks/performance/business constraints,
+  including section headers for major phases, professional tags for risks/performance/business constraints,
   Javadoc for public methods in Controller/Service/ServiceImpl classes, and concise call-site notes
   before important private helper method calls inside long public methods.
   Avoid noisy comments that only repeat syntax.
@@ -21,7 +21,7 @@ description: >-
 
 1. 用分段标题标出主流程。
 2. 用短注释解释关键业务规则。
-3. 用“核心 / 排雷 / 性能 / 业务 / 兼容”这类标签提醒维护者。
+3. 使用专业标签提醒维护者，例如“注意”“性能说明”“业务规则”“兼容性说明”“副作用说明”。
 4. 对公共方法、复杂校验、批处理、查重、缓存、状态回写写清楚输入、输出和副作用。
 5. 编号只用于同一个方法内部的连续步骤，跨方法不要硬套 1/2/3。
 6. 长 public 方法里每个关键 private 调用点前，都要写一句“这一步的业务目的”。
@@ -34,7 +34,7 @@ description: >-
 
 1. 复杂业务校验、逐级断言、状态流转。
 2. 为了前端展示、SQL 分组统计、后续批处理而写的特殊字段。
-3. 清空旧值、强制置空、绕过默认 ORM 策略等容易被误删的“排雷逻辑”。
+3. 清空旧值、强制置空、绕过默认 ORM 策略等容易被误删的关键逻辑。
 4. 本地缓存、批量分组、查重、重试、锁、并发、性能优化。
 5. 复杂 SQL、动态 SQL、非直观 join、数据修复脚本。
 6. 日期时间、编码、路径、代理、操作系统差异、兼容性处理。
@@ -42,6 +42,8 @@ description: >-
 8. AI 或维护者很可能“看起来能简化，其实不能简化”的代码。
 9. Controller 对外暴露的 public 接口，尤其是导入、生成、下发、审核、删除、状态变更类接口。
 10. 长 public 方法中调用多个 private 小方法的位置，必须解释每个调用对应的业务步骤。
+11. 事务边界、幂等性、重复提交、并发锁、数据一致性、权限口径、异常兜底。
+12. 和前端字段、导出模板、第三方接口、历史数据兼容有关的逻辑。
 
 ## 推荐注释模板
 
@@ -59,7 +61,7 @@ description: >-
 
 1. 同一个长方法内部存在明确顺序步骤时，可以使用 `1/2/3`。
 2. 不同 public 方法、不同入口方法之间不要连续编号，避免误导读者以为它们属于同一条执行链。
-3. 跨方法注释应使用“学生视角”“业务口径”“排雷核心”这类无编号标题。
+3. 跨方法注释应使用“学生视角”“业务口径”“统计口径”这类无编号标题。
 
 推荐：
 
@@ -85,23 +87,23 @@ public void analyzeCourseSelection(...) { ... }
 public Report getCourseSelectionReport(...) { ... }
 ```
 
-### 2. 排雷核心
+### 2. 注意说明
 
 适合容易被未来维护者误删的关键逻辑。
 
 ```java
-// 【排雷核心】：校验开始前必须清空旧解析结果，避免上一次错误状态残留到本次保存。
+// 注意：校验开始前必须清空旧解析结果，避免上一次错误状态残留到本次保存。
 ```
 
-### 3. 性能核心
+### 3. 性能说明
 
 适合缓存、批量处理、避免数据库 IO 的逻辑。
 
 ```java
-// 【性能核心】：从 JVM 本地缓存读取图书分类，避免导入校验时逐行打数据库。
+// 性能说明：从 JVM 本地缓存读取图书分类，避免导入校验时逐行打数据库。
 ```
 
-### 4. 业务断言
+### 4. 业务规则
 
 适合“为什么必须这样判断”的业务规则。
 
@@ -117,7 +119,39 @@ public Report getCourseSelectionReport(...) { ... }
 // 重复错误也要写入 errorJson，否则前端只有 isDuplicate 标记时无法展示具体原因。
 ```
 
-### 6. 长方法中的 private 调用点说明
+### 6. 数据一致性说明
+
+适合事务、状态回写、批量更新、重复提交和幂等处理。
+
+```java
+// 数据一致性：先删除旧快照再写入新快照，避免同一批次重复统计造成脏数据。
+```
+
+### 7. 兼容性说明
+
+适合历史数据、旧模板、旧前端字段、第三方接口差异。
+
+```java
+// 兼容性说明：旧版导入模板没有 classCode，这里继续允许通过 className 匹配班级。
+```
+
+### 8. 异常兜底说明
+
+适合 catch 分支、默认返回、降级逻辑。
+
+```java
+// 异常兜底：统计失败时返回空报表，避免影响页面主体信息展示。
+```
+
+### 9. 权限口径说明
+
+适合不同角色、不同组织、不同数据范围的过滤逻辑。
+
+```java
+// 权限口径：班主任只能查看本班学生，教务管理员可以查看全年级数据。
+```
+
+### 10. 长方法中的 private 调用点说明
 
 如果一个 public 方法较长，并且连续调用多个 private 小方法，不要只给 private 方法本身写注释。
 
