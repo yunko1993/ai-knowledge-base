@@ -79,12 +79,14 @@ ai-knowledge-base/
 - [Windows 下 Codex 桌面版通过 Clash Verge 连接代理的配置与校验](docs/dev-env/codex/windows-clash-verge-proxy.md)
 - [在 Codex 中让模型直接连接本机数据库（Windows / MySQL）](docs/dev-env/codex/codex-direct-db-connection.md)
 - [Windows 下用 Codex + Obsidian + GitHub 管理知识库](docs/dev-env/codex/windows-codex-obsidian-github-knowledge-workflow.md)
+- [Windows 下 Codex 命中内置 rg 但实际不可用的排查与修复](docs/dev-env/codex/windows-rg-path-conflict.md)
 - [Windows 下 Clash 规则设计：给 AI 工具稳定翻墙的可复用模板](docs/network/windows-clash-rules-for-ai-agents.md)
 
 ## 可复用 Skills
 
 - [code-comment-style：让 Codex 补更有价值的代码注释](skills/code-comment-style/SKILL.md)
 - [java8-idiomatic-style：让 Codex 写出更符合 Java 8 / IDEA Inspection 的代码](skills/java8-idiomatic-style/SKILL.md)
+- [windows-rg-path：让 Codex 在 Windows 下优先命中可用的独立 rg.exe](skills/windows-rg-path/SKILL.md)
 
 ## 收录范围
 
