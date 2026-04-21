@@ -75,15 +75,15 @@ ai-knowledge-base/
 
 ## 当前图鉴
 
-- [Windows 下 Codex 中文乱码：PowerShell 7 + UTF-8 解决记录](C:\github\ai-knowledge-base\docs\dev-env\codex\windows-powershell7-utf8.md)
-- [Windows 下 Codex 桌面版通过 Clash Verge 连接代理的配置与校验](C:\github\ai-knowledge-base\docs\dev-env\codex\windows-clash-verge-proxy.md)
-- [在 Codex 中让模型直接连接本机数据库（Windows / MySQL）](C:\github\ai-knowledge-base\docs\dev-env\codex\codex-direct-db-connection.md)
-- [Windows 下 Clash 规则设计：给 AI 工具稳定翻墙的可复用模板](C:\github\ai-knowledge-base\docs\network\windows-clash-rules-for-ai-agents.md)
+- [Windows 下 Codex 中文乱码：PowerShell 7 + UTF-8 解决记录](docs/dev-env/codex/windows-powershell7-utf8.md)
+- [Windows 下 Codex 桌面版通过 Clash Verge 连接代理的配置与校验](docs/dev-env/codex/windows-clash-verge-proxy.md)
+- [在 Codex 中让模型直接连接本机数据库（Windows / MySQL）](docs/dev-env/codex/codex-direct-db-connection.md)
+- [Windows 下 Clash 规则设计：给 AI 工具稳定翻墙的可复用模板](docs/network/windows-clash-rules-for-ai-agents.md)
 
 ## 可复用 Skills
 
-- [code-comment-style：让 Codex 补更有价值的代码注释](C:\github\ai-knowledge-base\skills\code-comment-style\SKILL.md)
-- [java8-idiomatic-style：让 Codex 写出更符合 Java 8 / IDEA Inspection 的代码](C:\github\ai-knowledge-base\skills\java8-idiomatic-style\SKILL.md)
+- [code-comment-style：让 Codex 补更有价值的代码注释](skills/code-comment-style/SKILL.md)
+- [java8-idiomatic-style：让 Codex 写出更符合 Java 8 / IDEA Inspection 的代码](skills/java8-idiomatic-style/SKILL.md)
 
 ## 收录范围
 
