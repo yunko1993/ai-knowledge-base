@@ -79,6 +79,7 @@ ai-knowledge-base/
 - [Windows 下 Codex 桌面版通过 Clash Verge 连接代理的配置与校验](docs/dev-env/codex/windows-clash-verge-proxy.md)
 - [在 Codex 中让模型直接连接本机数据库（Windows / MySQL）](docs/dev-env/codex/codex-direct-db-connection.md)
 - [Windows 下用 Codex + Obsidian + GitHub 管理知识库](docs/dev-env/codex/windows-codex-obsidian-github-knowledge-workflow.md)
+- [用 Notion + AI + GitHub 管理知识库：从云端编辑到本地同步](docs/dev-env/codex/windows-codex-notion-github-knowledge-workflow.md)
 - [Windows 下 Codex 命中内置 rg 但实际不可用的排查与修复](docs/dev-env/codex/windows-rg-path-conflict.md)
 - [Windows 下 Clash 规则设计：给 AI 工具稳定翻墙的可复用模板](docs/network/windows-clash-rules-for-ai-agents.md)
 
