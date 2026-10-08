@@ -19,7 +19,7 @@ flowchart LR
 - 在 Notion 桌面版改页面，保存的是 Notion 页面内容，不会直接修改本地仓库中的 `.md` 文件。
 - Notion 离线编辑会先保存在设备上，联网后同步到 Notion；这仍然不等于同步到 GitHub。[Notion 官方离线说明](https://www.notion.com/help/use-pages-offline)
 - AI 将页面提交到 GitHub 后，电脑上的文件仍需要拉取才会更新。
-- Notion 页面里的 Markdown 附件是某次同步的文件快照。修改页面正文时，附件不会自动变成新版本。
+- 独立“同步记录”页中的 Markdown 附件是某次同步的文件快照。修改文章正文时，附件不会自动变成新版本。
 ## 3. AI 怎样连接 Notion
 
 AI 通过已授权的 Notion 连接读取或编辑页面。Notion MCP 提供连接 AI 工具与 Notion 的方式，支持页面读写；实际能执行哪些动作，还取决于当前连接、工具能力和账号权限。[Notion MCP 官方说明](https://www.notion.com/help/notion-mcp)
@@ -61,7 +61,7 @@ AI 通过已授权的 Notion 连接读取或编辑页面。Notion MCP 提供连�
 - Notion 中指向已知仓库文章的链接，转换为该文件所在目录能解析的相对路径。
 - 外部官方资料链接保留原网址。
 - 原仓库路径写在正文中，方便后续准确同步。
-- 页面下方单独标明的同步记录、提交号和附件，不混入知识正文；它们是验证信息。
+- 同步记录、提交号和原文件附件统一放在知识库的独立“同步记录”页中；文章页面只保留标题和知识正文，与 GitHub、本地 Markdown 保持内容一致。
 - 使用普通段落、标题、列表和代码块更便于跨平台保存；无法转换的 Notion 专有块需要单独处理并说明。
 
 四份 `SKILL.md` 的 YAML frontmatter 需要在导出时恢复为文件开头的原格式。Notion 上的说明页面不会自动成为本地已安装的 skill。
@@ -119,7 +119,7 @@ git -C C:\github\ai-knowledge-base status --short
 
 验证标记：`NOTION-GITHUB-LOCAL-2026-10-08-V1`
 
-该标记用于检查最新 Notion 正文是否进入 GitHub 与本地文件。实际提交号、回读结果和本地核对结果，记录在 Notion 页面的独立同步记录区中。
+该标记用于检查最新 Notion 正文是否进入 GitHub 与本地文件。实际提交号、回读结果和本地核对结果，统一记录在知识库的独立“同步记录”页中。
 
 ## 9. 相关文档
 - [Windows 下用 Codex + Obsidian + GitHub 管理知识库](windows-codex-obsidian-github-knowledge-workflow.md)
